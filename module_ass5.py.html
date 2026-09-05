@@ -1,0 +1,361 @@
+<html>
+<head>
+<title>module_ass5.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #5f826b; font-style: italic;}
+.s5 { color: #2aacb8;}
+.s6 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+module_ass5.py</font>
+</center></td></tr></table>
+<pre><span class="s0"># import statements</span>
+<span class="s2">import </span><span class="s1">numpy </span><span class="s2">as </span><span class="s1">np</span>
+<span class="s2">import </span><span class="s1">matplotlib</span><span class="s3">.</span><span class="s1">pyplot </span><span class="s2">as </span><span class="s1">plt</span>
+<span class="s2">from </span><span class="s1">scipy</span><span class="s3">.</span><span class="s1">integrate </span><span class="s2">import </span><span class="s1">solve_ivp</span>
+<span class="s2">import </span><span class="s1">math</span>
+
+
+<span class="s2">def </span><span class="s1">difference_squares</span><span class="s3">(</span><span class="s1">x</span><span class="s3">, </span><span class="s1">y</span><span class="s3">):</span>
+    <span class="s4">&quot;&quot;&quot; TODO 
+    Calculates the difference between the squares of two values using different methods 
+ 
+    Parameters 
+    --------- 
+    x, y: integers/floats 
+        input values whose difference of squares is to be calculated 
+ 
+    Returns 
+    ______ 
+    None 
+ 
+    Pre/Postcondition 
+    ----------------- 
+    -The result of both methods will be printed 
+    &quot;&quot;&quot;</span>
+    <span class="s0"># Calculating z1 and z2 with two different methods</span>
+    <span class="s1">z1 </span><span class="s3">= </span><span class="s1">x </span><span class="s3">** </span><span class="s5">2 </span><span class="s3">- </span><span class="s1">y </span><span class="s3">** </span><span class="s5">2</span>
+    <span class="s1">z2 </span><span class="s3">= (</span><span class="s1">x </span><span class="s3">+ </span><span class="s1">y</span><span class="s3">) * (</span><span class="s1">x </span><span class="s3">- </span><span class="s1">y</span><span class="s3">)</span>
+
+    <span class="s0"># printing the two results out to 32 decimal places.</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s6">f&quot;Result z1 to 32 dp is </span><span class="s2">{</span><span class="s1">z1</span><span class="s2">:</span><span class="s6">.32f</span><span class="s2">}</span><span class="s6">&quot;</span><span class="s3">)</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s6">f&quot;Result z2 to 32 dp is </span><span class="s2">{</span><span class="s1">z2</span><span class="s2">:</span><span class="s6">.32f</span><span class="s2">}</span><span class="s6">&quot;</span><span class="s3">)</span>
+    <span class="s2">pass</span>
+
+
+<span class="s2">def </span><span class="s1">relative_error_subtraction</span><span class="s3">(</span><span class="s1">x</span><span class="s3">, </span><span class="s1">y</span><span class="s3">, </span><span class="s1">z_exact</span><span class="s3">):</span>
+    <span class="s4">&quot;&quot;&quot; TODO 
+    Calculates the value and relative error of a subtraction operation. 
+    --------- 
+ 
+    Parameters 
+    ---------- 
+    x, y: integers/floats 
+ 
+    Returns 
+    ------- 
+    None 
+ 
+    Pre/Postcondition 
+    ----------------- 
+    -The two values, result of subtraction (exact and approximate) and the relative error will be printed 
+    &quot;&quot;&quot;</span>
+
+    <span class="s0"># Calculating the difference between the two input values.</span>
+    <span class="s1">z </span><span class="s3">= </span><span class="s1">x </span><span class="s3">- </span><span class="s1">y</span>
+
+    <span class="s0"># Calculating the relative error between the exact result and the result calculated above.</span>
+    <span class="s1">relative_error </span><span class="s3">= </span><span class="s1">abs</span><span class="s3">(</span><span class="s1">z_exact </span><span class="s3">- </span><span class="s1">z</span><span class="s3">) / </span><span class="s1">abs</span><span class="s3">(</span><span class="s1">z_exact</span><span class="s3">)</span>
+
+    <span class="s0"># Printing result of the two input values, exact and approximate of the differece to 64 decimal places.</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s6">f&quot;Result x to 64 dp is </span><span class="s2">{</span><span class="s1">x</span><span class="s2">:</span><span class="s6">.64f</span><span class="s2">}</span><span class="s6">&quot;</span><span class="s3">)</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s6">f&quot;Result y to 64 dp is </span><span class="s2">{</span><span class="s1">y</span><span class="s2">:</span><span class="s6">.64f</span><span class="s2">}</span><span class="s6">&quot;</span><span class="s3">)</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s6">f&quot;Result z to 64 dp is </span><span class="s2">{</span><span class="s1">z</span><span class="s2">:</span><span class="s6">.64f</span><span class="s2">}</span><span class="s6">&quot;</span><span class="s3">)</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s6">f&quot;Exact value of z to 64 dp is </span><span class="s2">{</span><span class="s1">z_exact</span><span class="s2">:</span><span class="s6">.64f</span><span class="s2">}</span><span class="s6">&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># Printing the relative error to 16 decimal places.</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s6">f&quot;Relative error to 16 dp is </span><span class="s2">{</span><span class="s1">relative_error</span><span class="s2">:</span><span class="s6">.16f</span><span class="s2">}</span><span class="s6">&quot;</span><span class="s3">)</span>
+    <span class="s2">pass</span>
+
+
+<span class="s2">def </span><span class="s1">exact_solution_ode1</span><span class="s3">(</span><span class="s1">t</span><span class="s3">):</span>
+    <span class="s4">&quot;&quot;&quot; TODO 
+    Calculates the exact solution to the initial value problem in (7) 
+    ---------- 
+ 
+    Parameter(s) 
+    ---------- 
+    t: integer/float/array-like 
+        Time at which the solution of y is to be calculated 
+ 
+    Returns 
+    ------- 
+    y_exact: integer/float/array-like 
+        Exact solution of the initial value problem for the input value t 
+    &quot;&quot;&quot;</span>
+
+    <span class="s0"># Converting the input into a NumPy array.</span>
+    <span class="s1">t </span><span class="s3">= </span><span class="s1">np</span><span class="s3">.</span><span class="s1">asarray</span><span class="s3">(</span><span class="s1">t</span><span class="s3">)</span>
+
+    <span class="s0"># Calculating the exact solution to the input with the particular solution equation.</span>
+    <span class="s1">y_exact </span><span class="s3">= </span><span class="s1">np</span><span class="s3">.</span><span class="s1">exp</span><span class="s3">(-</span><span class="s5">5 </span><span class="s3">* </span><span class="s1">t</span><span class="s3">) * (</span><span class="s5">2 </span><span class="s3">* </span><span class="s1">t </span><span class="s3">+ </span><span class="s5">4</span><span class="s3">)</span>
+
+    <span class="s0"># Convert back to a float if the solution is a NumPy float.</span>
+    <span class="s2">if </span><span class="s1">type</span><span class="s3">(</span><span class="s1">y_exact</span><span class="s3">) </span><span class="s2">is </span><span class="s1">np</span><span class="s3">.</span><span class="s1">float64</span><span class="s3">:</span>
+        <span class="s1">y_exact </span><span class="s3">= </span><span class="s1">float</span><span class="s3">(</span><span class="s1">y_exact</span><span class="s3">)</span>
+    <span class="s2">return </span><span class="s1">y_exact</span>
+
+
+<span class="s2">def </span><span class="s1">mean_absolute_error</span><span class="s3">(</span><span class="s1">y_exact</span><span class="s3">, </span><span class="s1">y_approx</span><span class="s3">):</span>
+    <span class="s4">&quot;&quot;&quot; TODO 
+    Calculates the mean absolute error for an approximate solution, given the exact solution. 
+    ---------- 
+ 
+    Parameter(s) 
+    ---------- 
+    y_exact: 1D NumPy array 
+        Exact solution (excluding initial condition) 
+    y_approx: 1D NumPy array 
+        Numerical approximation to the exact solution above (excluding initial condition) 
+ 
+    Returns 
+    ------- 
+    mae: float 
+        Mean absolute error in the numerical solution 
+ 
+    Pre/Postcondition 
+    ----------------- 
+    -y_exact and y_approx must both be NumPy arrays of the same length 
+    &quot;&quot;&quot;</span>
+
+    <span class="s0"># Initialise variable mae</span>
+    <span class="s1">mae </span><span class="s3">= </span><span class="s5">0</span>
+    <span class="s1">n </span><span class="s3">= </span><span class="s1">len</span><span class="s3">(</span><span class="s1">y_exact</span><span class="s3">)</span>
+
+    <span class="s0"># Loop through each element in the exact and approximate y solution.</span>
+    <span class="s0"># Add to mae the absolute difference between approximate and exact solution divided by n for each iteration.</span>
+    <span class="s2">for </span><span class="s1">i </span><span class="s2">in </span><span class="s1">range</span><span class="s3">(</span><span class="s1">n</span><span class="s3">):</span>
+        <span class="s1">mae </span><span class="s3">+= </span><span class="s1">abs</span><span class="s3">(</span><span class="s1">y_exact</span><span class="s3">[</span><span class="s1">i</span><span class="s3">] - </span><span class="s1">y_approx</span><span class="s3">[</span><span class="s1">i</span><span class="s3">]) / </span><span class="s1">n</span>
+
+    <span class="s0"># Convert mae into a float.</span>
+    <span class="s1">mae </span><span class="s3">= </span><span class="s1">float</span><span class="s3">(</span><span class="s1">mae</span><span class="s3">)</span>
+    <span class="s2">return </span><span class="s1">mae</span>
+
+
+<span class="s2">def </span><span class="s1">derivative_ode1</span><span class="s3">(</span><span class="s1">t</span><span class="s3">, </span><span class="s1">y</span><span class="s3">):</span>
+    <span class="s4">&quot;&quot;&quot; TODO 
+    Calculates the derivative of the ODE defined. 
+    ---------- 
+ 
+    Parameter(s) 
+    ---------- 
+    t: float 
+        Value of independent variable 
+    y: float 
+        Value of dependent variable 
+ 
+    Returns 
+    ------- 
+    dydt: float 
+        Value of the first-order derivative 
+    &quot;&quot;&quot;</span>
+
+    <span class="s0"># Calculate the output using the original ODE given.</span>
+    <span class="s1">dydt </span><span class="s3">= </span><span class="s5">2 </span><span class="s3">* </span><span class="s1">math</span><span class="s3">.</span><span class="s1">exp</span><span class="s3">(-</span><span class="s5">5 </span><span class="s3">* </span><span class="s1">t</span><span class="s3">) - </span><span class="s5">5 </span><span class="s3">* </span><span class="s1">y</span>
+    <span class="s2">return </span><span class="s1">dydt</span>
+
+
+<span class="s2">def </span><span class="s1">euler_step</span><span class="s3">(</span><span class="s1">f</span><span class="s3">, </span><span class="s1">t</span><span class="s3">, </span><span class="s1">y</span><span class="s3">, </span><span class="s1">h</span><span class="s3">):</span>
+    <span class="s4">&quot;&quot;&quot; 
+    Calculate one step of the Euler method. 
+ 
+    Parameters 
+    ---------- 
+    f : function 
+        Derivative function (callable). 
+    t : float 
+        Independent variable at start of step. 
+    y : float 
+        Dependent variable at start of step. 
+    h : float 
+        Step size along independent variable. 
+ 
+    Returns 
+    ------- 
+    y_new : float 
+        Dependent variable at end of step. 
+    &quot;&quot;&quot;</span>
+    <span class="s1">f0 </span><span class="s3">= </span><span class="s1">f</span><span class="s3">(</span><span class="s1">t</span><span class="s3">, </span><span class="s1">y</span><span class="s3">)</span>
+    <span class="s1">y_new </span><span class="s3">= </span><span class="s1">y </span><span class="s3">+ </span><span class="s1">h </span><span class="s3">* </span><span class="s1">f0</span>
+    <span class="s2">return </span><span class="s1">y_new</span>
+
+
+<span class="s2">def </span><span class="s1">improved_euler_step</span><span class="s3">(</span><span class="s1">f</span><span class="s3">, </span><span class="s1">t</span><span class="s3">, </span><span class="s1">y</span><span class="s3">, </span><span class="s1">h</span><span class="s3">):</span>
+    <span class="s4">&quot;&quot;&quot; 
+    Calculate one step of the Improved Euler method. 
+ 
+    Parameters 
+    ---------- 
+    f : function 
+        Derivative function (callable). 
+    t : float 
+        Independent variable at start of step. 
+    y : float 
+        Dependent variable at start of step. 
+    h : float 
+        Step size along independent variable. 
+ 
+    Returns 
+    ------- 
+    y_new : float 
+        Dependent variable at end of step. 
+    &quot;&quot;&quot;</span>
+    <span class="s1">f0 </span><span class="s3">= </span><span class="s1">f</span><span class="s3">(</span><span class="s1">t</span><span class="s3">, </span><span class="s1">y</span><span class="s3">)</span>
+    <span class="s1">f1 </span><span class="s3">= </span><span class="s1">f</span><span class="s3">(</span><span class="s1">t </span><span class="s3">+ </span><span class="s1">h</span><span class="s3">, </span><span class="s1">y </span><span class="s3">+ </span><span class="s1">h </span><span class="s3">* </span><span class="s1">f0</span><span class="s3">)</span>
+    <span class="s1">y_new </span><span class="s3">= </span><span class="s1">y </span><span class="s3">+ </span><span class="s1">h </span><span class="s3">* </span><span class="s5">0.5 </span><span class="s3">* (</span><span class="s1">f0 </span><span class="s3">+ </span><span class="s1">f1</span><span class="s3">)</span>
+    <span class="s2">return </span><span class="s1">y_new</span>
+
+
+<span class="s2">def </span><span class="s1">classic_rk4_step</span><span class="s3">(</span><span class="s1">f</span><span class="s3">, </span><span class="s1">t</span><span class="s3">, </span><span class="s1">y</span><span class="s3">, </span><span class="s1">h</span><span class="s3">):</span>
+    <span class="s4">&quot;&quot;&quot; 
+    Calculate one step of the Classic RK4 method. 
+ 
+    Parameters 
+    ---------- 
+    f : function 
+        Derivative function (callable). 
+    t : float 
+        Independent variable at start of step. 
+    y : float 
+        Dependent variable at start of step. 
+    h : float 
+        Step size along independent variable. 
+ 
+    Returns 
+    ------- 
+    y_new : float 
+        Dependent variable at end of step. 
+    &quot;&quot;&quot;</span>
+    <span class="s1">f0 </span><span class="s3">= </span><span class="s1">f</span><span class="s3">(</span><span class="s1">t</span><span class="s3">, </span><span class="s1">y</span><span class="s3">)</span>
+    <span class="s1">f1 </span><span class="s3">= </span><span class="s1">f</span><span class="s3">(</span><span class="s1">t </span><span class="s3">+ </span><span class="s1">h </span><span class="s3">* </span><span class="s5">0.5</span><span class="s3">, </span><span class="s1">y </span><span class="s3">+ </span><span class="s1">h </span><span class="s3">* </span><span class="s5">0.5 </span><span class="s3">* </span><span class="s1">f0</span><span class="s3">)</span>
+    <span class="s1">f2 </span><span class="s3">= </span><span class="s1">f</span><span class="s3">(</span><span class="s1">t </span><span class="s3">+ </span><span class="s1">h </span><span class="s3">* </span><span class="s5">0.5</span><span class="s3">, </span><span class="s1">y </span><span class="s3">+ </span><span class="s1">h </span><span class="s3">* </span><span class="s5">0.5 </span><span class="s3">* </span><span class="s1">f1</span><span class="s3">)</span>
+    <span class="s1">f3 </span><span class="s3">= </span><span class="s1">f</span><span class="s3">(</span><span class="s1">t </span><span class="s3">+ </span><span class="s1">h</span><span class="s3">, </span><span class="s1">y </span><span class="s3">+ </span><span class="s1">h </span><span class="s3">* </span><span class="s1">f2</span><span class="s3">)</span>
+    <span class="s1">y_new </span><span class="s3">= </span><span class="s1">y </span><span class="s3">+ </span><span class="s1">h </span><span class="s3">* (</span><span class="s1">f0 </span><span class="s3">+ </span><span class="s5">2. </span><span class="s3">* </span><span class="s1">f1 </span><span class="s3">+ </span><span class="s5">2. </span><span class="s3">* </span><span class="s1">f2 </span><span class="s3">+ </span><span class="s1">f3</span><span class="s3">) / </span><span class="s5">6.</span>
+    <span class="s2">return </span><span class="s1">y_new</span>
+
+
+<span class="s2">def </span><span class="s1">explicit_rk_step</span><span class="s3">(</span><span class="s1">f</span><span class="s3">, </span><span class="s1">t</span><span class="s3">, </span><span class="s1">y</span><span class="s3">, </span><span class="s1">h</span><span class="s3">, </span><span class="s1">alpha</span><span class="s3">, </span><span class="s1">beta</span><span class="s3">, </span><span class="s1">gamma</span><span class="s3">):</span>
+    <span class="s4">&quot;&quot;&quot; TODO 
+    Calculate one step of any explicit RK method 
+ 
+    Parameters 
+    ---------- 
+    f : function 
+        Derivative function (callable). 
+    t : float 
+        Independent variable at start of step. 
+    y : float 
+        Dependent variable at start of step. 
+    h : float 
+        Step size along independent variable. 
+    alpha: 1D NumPy array 
+        Weights from the Butcher Tableau of the method 
+    beta: 1D NumPy array 
+        Nodes from the Butcher Tableau of the method 
+    gamma: 1D NumPy array 
+        RK matrix from the Butcher Tableau of the method 
+ 
+    Returns 
+    ------- 
+    y_new : float 
+        Dependent variable at end of step. 
+    &quot;&quot;&quot;</span>
+    <span class="s0"># Initialising our new y-value as the y given in the input.</span>
+    <span class="s1">y_new </span><span class="s3">= </span><span class="s1">y</span>
+
+    <span class="s0"># seeing what order of method was chosen by user by looking at the size of alpha array</span>
+    <span class="s1">order </span><span class="s3">= </span><span class="s1">len</span><span class="s3">(</span><span class="s1">alpha</span><span class="s3">)</span>
+
+    <span class="s0"># Initialising an array to store derivative evaluations</span>
+    <span class="s0"># the number of derivative evaluations should be include to the order number.</span>
+    <span class="s1">estimation </span><span class="s3">= [</span><span class="s5">0</span><span class="s3">] * </span><span class="s1">order</span>
+
+    <span class="s0"># Calculate each derivative evaluation with corresponding beta and gamma values</span>
+    <span class="s2">for </span><span class="s1">i </span><span class="s2">in </span><span class="s1">range</span><span class="s3">(</span><span class="s1">order</span><span class="s3">):</span>
+        <span class="s1">estimation</span><span class="s3">[</span><span class="s1">i</span><span class="s3">] = </span><span class="s1">f</span><span class="s3">((</span><span class="s1">t </span><span class="s3">+ </span><span class="s1">beta</span><span class="s3">[</span><span class="s1">i</span><span class="s3">] * </span><span class="s1">h</span><span class="s3">), (</span><span class="s1">y </span><span class="s3">+ </span><span class="s1">h </span><span class="s3">* </span><span class="s1">gamma</span><span class="s3">[</span><span class="s1">i</span><span class="s3">][</span><span class="s1">i</span><span class="s3">-</span><span class="s5">1</span><span class="s3">] * </span><span class="s1">estimation</span><span class="s3">[</span><span class="s1">i</span><span class="s3">-</span><span class="s5">1</span><span class="s3">]))</span>
+
+    <span class="s0"># Multiplying our derivation evaluations by the step size and the corresponding alpha value.</span>
+    <span class="s0"># Then adding it onto our original y value which was provided in the input</span>
+    <span class="s2">for </span><span class="s1">i </span><span class="s2">in </span><span class="s1">range</span><span class="s3">(</span><span class="s1">order</span><span class="s3">):</span>
+        <span class="s1">y_new </span><span class="s3">+= </span><span class="s1">h </span><span class="s3">* </span><span class="s1">estimation</span><span class="s3">[</span><span class="s1">i</span><span class="s3">] * </span><span class="s1">alpha</span><span class="s3">[</span><span class="s1">i</span><span class="s3">]</span>
+
+    <span class="s2">return </span><span class="s1">y_new</span>
+
+
+<span class="s2">def </span><span class="s1">explicit_rk_solver</span><span class="s3">(</span><span class="s1">f</span><span class="s3">, </span><span class="s1">tspan</span><span class="s3">, </span><span class="s1">y0</span><span class="s3">, </span><span class="s1">h</span><span class="s3">, </span><span class="s1">alpha</span><span class="s3">, </span><span class="s1">beta</span><span class="s3">, </span><span class="s1">gamma</span><span class="s3">):</span>
+    <span class="s4">&quot;&quot;&quot; TODO 
+    Calculates the dependent variable for a certain step size over a certain timespan. 
+ 
+    Parameters 
+    ---------- 
+    f : function 
+        Derivative function (callable). 
+    tspan : list 
+        Two floats representing the start and end values of the independent variable 
+    y0 : float 
+        Initial condition for the dependent variable. 
+    h : float 
+        Step size along independent variable. 
+    alpha: 1D NumPy array 
+        Weights from the Butcher Tableau of the method 
+    beta: 1D NumPy array 
+        Nodes from the Butcher Tableau of the method 
+    gamma: 1D NumPy array 
+        RK matrix from the Butcher Tableau of the method 
+ 
+    Returns 
+    ------- 
+    t: 1D NumPy array 
+        Values of the independent variable for each step. 
+    y: 1D NumPy array 
+        Value of dependent variable for each step. 
+ 
+    Pre/Postconditions 
+    ------------------ 
+    -Input tspan array must be of length 2, t[1]&lt;t[2] 
+    &quot;&quot;&quot;</span>
+    <span class="s0"># Initialising initial dependent/independent variables,</span>
+    <span class="s0"># and arrays to store values of dependent/independent variables for each step ahead.</span>
+    <span class="s1">t </span><span class="s3">= </span><span class="s1">tspan</span><span class="s3">[</span><span class="s5">0</span><span class="s3">]</span>
+    <span class="s1">timestamp </span><span class="s3">= [</span><span class="s1">t</span><span class="s3">]</span>
+    <span class="s1">dep_var </span><span class="s3">= [</span><span class="s1">y0</span><span class="s3">]</span>
+    <span class="s1">y </span><span class="s3">= </span><span class="s1">y0</span>
+
+    <span class="s0"># The number of values for each of our variable is equal to the difference</span>
+    <span class="s0"># in the dependent variable divided by step size plus one</span>
+    <span class="s1">array_size </span><span class="s3">= (</span><span class="s1">tspan</span><span class="s3">[</span><span class="s5">1</span><span class="s3">] - </span><span class="s1">tspan</span><span class="s3">[</span><span class="s5">0</span><span class="s3">])/</span><span class="s1">h </span><span class="s3">+ </span><span class="s5">1</span>
+
+    <span class="s0"># Calculate each value of our independent/dependent variable until the length of our array reaches the</span>
+    <span class="s0"># supposed size</span>
+    <span class="s2">while </span><span class="s1">len</span><span class="s3">(</span><span class="s1">timestamp</span><span class="s3">) &lt; </span><span class="s1">array_size</span><span class="s3">:</span>
+        <span class="s1">y_intermediate </span><span class="s3">= </span><span class="s1">explicit_rk_step</span><span class="s3">(</span><span class="s1">f</span><span class="s3">, </span><span class="s1">t</span><span class="s3">, </span><span class="s1">y</span><span class="s3">, </span><span class="s1">h</span><span class="s3">, </span><span class="s1">alpha</span><span class="s3">, </span><span class="s1">beta</span><span class="s3">, </span><span class="s1">gamma</span><span class="s3">)</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s1">y_intermediate</span><span class="s3">)</span>
+        <span class="s1">dep_var</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">y_intermediate</span><span class="s3">)</span>
+        <span class="s1">y </span><span class="s3">= </span><span class="s1">y_intermediate</span>
+        <span class="s1">t </span><span class="s3">+= </span><span class="s1">h</span>
+        <span class="s1">timestamp</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">t</span><span class="s3">)</span>
+    <span class="s1">timestamp </span><span class="s3">= </span><span class="s1">np</span><span class="s3">.</span><span class="s1">asarray</span><span class="s3">(</span><span class="s1">timestamp</span><span class="s3">)</span>
+    <span class="s1">dep_var </span><span class="s3">= </span><span class="s1">np</span><span class="s3">.</span><span class="s1">asarray</span><span class="s3">(</span><span class="s1">dep_var</span><span class="s3">)</span>
+    <span class="s2">return </span><span class="s1">timestamp</span><span class="s3">, </span><span class="s1">dep_var</span>
+</pre>
+</body>
+</html>

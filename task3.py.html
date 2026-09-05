@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>task3.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #2aacb8;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+task3.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">numpy </span><span class="s0">as </span><span class="s1">np</span>
+<span class="s0">from </span><span class="s1">module_ass5 </span><span class="s0">import </span><span class="s2">*</span>
+
+
+<span class="s3"># set Butcher tableau for Euler method</span>
+<span class="s1">alpha_euler </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">([</span><span class="s4">1.</span><span class="s2">])</span>
+<span class="s1">beta_euler </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">([</span><span class="s4">0.</span><span class="s2">])</span>
+<span class="s1">gamma_euler </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">([[</span><span class="s4">0.</span><span class="s2">]])</span>
+<span class="s3"># set Butcher tableau for Improved Euler method</span>
+<span class="s1">alpha_ieuler </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">([</span><span class="s4">0.5</span><span class="s2">, </span><span class="s4">0.5</span><span class="s2">])</span>
+<span class="s1">beta_ieuler </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">([</span><span class="s4">0.</span><span class="s2">, </span><span class="s4">1.</span><span class="s2">])</span>
+<span class="s1">gamma_ieuler </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">([[</span><span class="s4">0.</span><span class="s2">, </span><span class="s4">0.</span><span class="s2">], [</span><span class="s4">1.</span><span class="s2">, </span><span class="s4">0.</span><span class="s2">]])</span>
+<span class="s3"># set Butcher tableau for Classic RK4 method</span>
+<span class="s1">alpha_rk4 </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">([</span><span class="s4">1</span><span class="s2">/</span><span class="s4">6</span><span class="s2">, </span><span class="s4">1</span><span class="s2">/</span><span class="s4">3</span><span class="s2">, </span><span class="s4">1</span><span class="s2">/</span><span class="s4">3</span><span class="s2">, </span><span class="s4">1</span><span class="s2">/</span><span class="s4">6</span><span class="s2">])</span>
+<span class="s1">beta_rk4 </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">([</span><span class="s4">0</span><span class="s2">, </span><span class="s4">0.5</span><span class="s2">, </span><span class="s4">0.5</span><span class="s2">, </span><span class="s4">1</span><span class="s2">])</span>
+<span class="s1">gamma_rk4 </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">([[</span><span class="s4">0</span><span class="s2">, </span><span class="s4">0</span><span class="s2">, </span><span class="s4">0</span><span class="s2">, </span><span class="s4">0</span><span class="s2">], [</span><span class="s4">0.5</span><span class="s2">, </span><span class="s4">0</span><span class="s2">, </span><span class="s4">0</span><span class="s2">, </span><span class="s4">0</span><span class="s2">], [</span><span class="s4">0</span><span class="s2">, </span><span class="s4">0.5</span><span class="s2">, </span><span class="s4">0</span><span class="s2">, </span><span class="s4">0</span><span class="s2">], [</span><span class="s4">0</span><span class="s2">, </span><span class="s4">0</span><span class="s2">, </span><span class="s4">1</span><span class="s2">, </span><span class="s4">0</span><span class="s2">]])</span>
+<span class="s3"># rest of your code goes here</span>
+
+
+<span class="s3"># Comment out chunk here</span>
+
+<span class="s3"># For 3.1 and 3.2:</span>
+<span class="s1">y0 </span><span class="s2">= </span><span class="s4">4.</span>
+<span class="s1">tspan </span><span class="s2">= [</span><span class="s4">0.</span><span class="s2">, </span><span class="s4">2.</span><span class="s2">]</span>
+<span class="s1">h </span><span class="s2">= [</span><span class="s4">0.01</span><span class="s2">, </span><span class="s4">0.025</span><span class="s2">, </span><span class="s4">0.05</span><span class="s2">, </span><span class="s4">0.1</span><span class="s2">, </span><span class="s4">0.2</span><span class="s2">, </span><span class="s4">0.25</span><span class="s2">]</span>
+<span class="s1">mae_euler </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">zeros</span><span class="s2">(</span><span class="s1">len</span><span class="s2">(</span><span class="s1">h</span><span class="s2">))</span>
+<span class="s1">mae_ieuler </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">zeros</span><span class="s2">(</span><span class="s1">len</span><span class="s2">(</span><span class="s1">h</span><span class="s2">))</span>
+<span class="s1">mae_rk4 </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">zeros</span><span class="s2">(</span><span class="s1">len</span><span class="s2">(</span><span class="s1">h</span><span class="s2">))</span>
+
+<span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">len</span><span class="s2">(</span><span class="s1">h</span><span class="s2">)):</span>
+    <span class="s1">timestamp_euler</span><span class="s2">, </span><span class="s1">y_euler </span><span class="s2">= </span><span class="s1">explicit_rk_solver</span><span class="s2">(</span><span class="s1">derivative_ode1</span><span class="s2">, </span><span class="s1">tspan</span><span class="s2">, </span><span class="s1">y0</span><span class="s2">, </span><span class="s1">h</span><span class="s2">[</span><span class="s1">i</span><span class="s2">], </span><span class="s1">alpha_euler</span><span class="s2">, </span><span class="s1">beta_euler</span><span class="s2">, </span><span class="s1">gamma_euler</span><span class="s2">)</span>
+    <span class="s1">y_approx </span><span class="s2">= </span><span class="s1">y_euler</span><span class="s2">[</span><span class="s4">1</span><span class="s2">:]</span>
+    <span class="s1">y_exact </span><span class="s2">= </span><span class="s1">exact_solution_ode1</span><span class="s2">(</span><span class="s1">timestamp_euler</span><span class="s2">[</span><span class="s4">1</span><span class="s2">:])</span>
+    <span class="s1">mae_euler</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s1">mean_absolute_error</span><span class="s2">(</span><span class="s1">y_exact</span><span class="s2">, </span><span class="s1">y_approx</span><span class="s2">)</span>
+
+<span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">len</span><span class="s2">(</span><span class="s1">h</span><span class="s2">)):</span>
+    <span class="s1">timestamp_ieuler</span><span class="s2">, </span><span class="s1">y_ieuler </span><span class="s2">= </span><span class="s1">explicit_rk_solver</span><span class="s2">(</span><span class="s1">derivative_ode1</span><span class="s2">, </span><span class="s1">tspan</span><span class="s2">, </span><span class="s1">y0</span><span class="s2">, </span><span class="s1">h</span><span class="s2">[</span><span class="s1">i</span><span class="s2">], </span><span class="s1">alpha_ieuler</span><span class="s2">, </span><span class="s1">beta_ieuler</span><span class="s2">, </span><span class="s1">gamma_ieuler</span><span class="s2">)</span>
+    <span class="s1">y_approx </span><span class="s2">= </span><span class="s1">y_ieuler</span><span class="s2">[</span><span class="s4">1</span><span class="s2">:]</span>
+    <span class="s1">y_exact </span><span class="s2">= </span><span class="s1">exact_solution_ode1</span><span class="s2">(</span><span class="s1">timestamp_ieuler</span><span class="s2">[</span><span class="s4">1</span><span class="s2">:])</span>
+    <span class="s1">mae_ieuler</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s1">mean_absolute_error</span><span class="s2">(</span><span class="s1">y_exact</span><span class="s2">, </span><span class="s1">y_approx</span><span class="s2">)</span>
+
+<span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">len</span><span class="s2">(</span><span class="s1">h</span><span class="s2">)):</span>
+    <span class="s1">timestamp_rk4</span><span class="s2">, </span><span class="s1">y_rk4 </span><span class="s2">= </span><span class="s1">explicit_rk_solver</span><span class="s2">(</span><span class="s1">derivative_ode1</span><span class="s2">, </span><span class="s1">tspan</span><span class="s2">, </span><span class="s1">y0</span><span class="s2">, </span><span class="s1">h</span><span class="s2">[</span><span class="s1">i</span><span class="s2">], </span><span class="s1">alpha_rk4</span><span class="s2">, </span><span class="s1">beta_rk4</span><span class="s2">, </span><span class="s1">gamma_rk4</span><span class="s2">)</span>
+    <span class="s1">y_approx </span><span class="s2">= </span><span class="s1">y_rk4</span><span class="s2">[</span><span class="s4">1</span><span class="s2">:]</span>
+    <span class="s1">y_exact </span><span class="s2">= </span><span class="s1">exact_solution_ode1</span><span class="s2">(</span><span class="s1">timestamp_rk4</span><span class="s2">[</span><span class="s4">1</span><span class="s2">:])</span>
+    <span class="s1">mae_rk4</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s1">mean_absolute_error</span><span class="s2">(</span><span class="s1">y_exact</span><span class="s2">, </span><span class="s1">y_approx</span><span class="s2">)</span>
+
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">plot</span><span class="s2">(</span><span class="s1">h</span><span class="s2">, </span><span class="s1">mae_euler</span><span class="s2">, </span><span class="s1">label</span><span class="s2">=</span><span class="s5">'Euler method'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">plot</span><span class="s2">(</span><span class="s1">h</span><span class="s2">, </span><span class="s1">mae_ieuler</span><span class="s2">, </span><span class="s1">label</span><span class="s2">=</span><span class="s5">'Improved Euler method'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">plot</span><span class="s2">(</span><span class="s1">h</span><span class="s2">, </span><span class="s1">mae_rk4</span><span class="s2">, </span><span class="s1">label</span><span class="s2">=</span><span class="s5">'Classic RK4 method'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">legend</span><span class="s2">()</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">title</span><span class="s2">(</span><span class="s5">&quot;MAE vs step size&quot;</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">ylabel</span><span class="s2">(</span><span class="s5">&quot;Mean Absolute Value&quot;</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">xlabel</span><span class="s2">(</span><span class="s5">&quot;Step Size&quot;</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">show</span><span class="s2">()</span>
+
+<span class="s3"># Comment out chunk here</span>
+
+<span class="s3"># For 3.3 and 3.4:</span>
+<span class="s1">y0 </span><span class="s2">= </span><span class="s4">4.</span>
+<span class="s1">tspan </span><span class="s2">= [</span><span class="s4">0.</span><span class="s2">, </span><span class="s4">2.</span><span class="s2">]</span>
+<span class="s1">h </span><span class="s2">= </span><span class="s4">0.5</span>
+
+<span class="s1">t_euler</span><span class="s2">, </span><span class="s1">y_euler </span><span class="s2">= </span><span class="s1">explicit_rk_solver</span><span class="s2">(</span><span class="s1">derivative_ode1</span><span class="s2">, </span><span class="s1">tspan</span><span class="s2">, </span><span class="s1">y0</span><span class="s2">, </span><span class="s1">h</span><span class="s2">, </span><span class="s1">alpha_euler</span><span class="s2">, </span><span class="s1">beta_euler</span><span class="s2">, </span><span class="s1">gamma_euler</span><span class="s2">)</span>
+<span class="s1">t_ieuler</span><span class="s2">, </span><span class="s1">y_ieuler </span><span class="s2">= </span><span class="s1">explicit_rk_solver</span><span class="s2">(</span><span class="s1">derivative_ode1</span><span class="s2">, </span><span class="s1">tspan</span><span class="s2">, </span><span class="s1">y0</span><span class="s2">, </span><span class="s1">h</span><span class="s2">, </span><span class="s1">alpha_ieuler</span><span class="s2">, </span><span class="s1">beta_ieuler</span><span class="s2">, </span><span class="s1">gamma_ieuler</span><span class="s2">)</span>
+<span class="s1">t_rk4</span><span class="s2">, </span><span class="s1">y_rk4 </span><span class="s2">= </span><span class="s1">explicit_rk_solver</span><span class="s2">(</span><span class="s1">derivative_ode1</span><span class="s2">, </span><span class="s1">tspan</span><span class="s2">, </span><span class="s1">y0</span><span class="s2">, </span><span class="s1">h</span><span class="s2">, </span><span class="s1">alpha_rk4</span><span class="s2">, </span><span class="s1">beta_rk4</span><span class="s2">, </span><span class="s1">gamma_rk4</span><span class="s2">)</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s1">y_rk4</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">plot</span><span class="s2">(</span><span class="s1">t_euler</span><span class="s2">, </span><span class="s1">y_euler</span><span class="s2">, </span><span class="s1">label</span><span class="s2">=</span><span class="s5">'Euler method'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">plot</span><span class="s2">(</span><span class="s1">t_ieuler</span><span class="s2">, </span><span class="s1">y_ieuler</span><span class="s2">, </span><span class="s1">label</span><span class="s2">=</span><span class="s5">'Improved Euler method'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">plot</span><span class="s2">(</span><span class="s1">t_rk4</span><span class="s2">, </span><span class="s1">y_rk4</span><span class="s2">, </span><span class="s1">label</span><span class="s2">=</span><span class="s5">'Classic RK4 method'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">legend</span><span class="s2">()</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">xlabel</span><span class="s2">(</span><span class="s5">'t'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">ylabel</span><span class="s2">(</span><span class="s5">'y'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">title</span><span class="s2">(</span><span class="s5">&quot;y against t for 3 RK methods with step size = 0.5&quot;</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">show</span><span class="s2">()</span>
+</pre>
+</body>
+</html>

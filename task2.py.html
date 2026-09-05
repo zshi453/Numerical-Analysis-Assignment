@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>task2.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #7a7e85;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+task2.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">module_ass5 </span><span class="s0">import </span><span class="s2">*</span>
+<span class="s0">from </span><span class="s1">scipy</span><span class="s2">.</span><span class="s1">integrate </span><span class="s0">import </span><span class="s1">solve_ivp</span>
+<span class="s1">t_span </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">([</span><span class="s3">0</span><span class="s2">, </span><span class="s3">2</span><span class="s2">])</span>
+<span class="s1">y0 </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">array</span><span class="s2">([</span><span class="s3">4.0</span><span class="s2">])</span>
+<span class="s1">sol </span><span class="s2">= </span><span class="s1">solve_ivp</span><span class="s2">(</span><span class="s1">derivative_ode1</span><span class="s2">, </span><span class="s1">t_span</span><span class="s2">, </span><span class="s1">y0</span><span class="s2">)</span>
+<span class="s1">y_approx </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">delete</span><span class="s2">(</span><span class="s1">sol</span><span class="s2">.</span><span class="s1">y</span><span class="s2">, </span><span class="s3">0</span><span class="s2">)  </span><span class="s4"># y approximation with the initial value removed</span>
+<span class="s1">time </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">delete</span><span class="s2">(</span><span class="s1">sol</span><span class="s2">.</span><span class="s1">t</span><span class="s2">, </span><span class="s3">0</span><span class="s2">)</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s1">y_approx</span><span class="s2">)</span>
+<span class="s1">y_exact </span><span class="s2">= </span><span class="s1">np</span><span class="s2">.</span><span class="s1">zeros</span><span class="s2">(</span><span class="s1">len</span><span class="s2">(</span><span class="s1">time</span><span class="s2">))</span>
+
+<span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">len</span><span class="s2">(</span><span class="s1">sol</span><span class="s2">.</span><span class="s1">t</span><span class="s2">) - </span><span class="s3">1</span><span class="s2">):</span>
+    <span class="s1">y_exact</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s1">exact_solution_ode1</span><span class="s2">(</span><span class="s1">time</span><span class="s2">[</span><span class="s1">i</span><span class="s2">])</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s1">y_exact</span><span class="s2">)</span>
+
+<span class="s1">mae </span><span class="s2">= </span><span class="s1">mean_absolute_error</span><span class="s2">(</span><span class="s1">y_approx</span><span class="s2">, </span><span class="s1">y_exact</span><span class="s2">)</span>
+<span class="s1">print</span><span class="s2">(</span><span class="s1">mae</span><span class="s2">)</span>
+
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">plot</span><span class="s2">(</span><span class="s1">time</span><span class="s2">, </span><span class="s1">y_exact</span><span class="s2">, </span><span class="s1">label</span><span class="s2">=</span><span class="s5">'Exact'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">plot</span><span class="s2">(</span><span class="s1">time</span><span class="s2">, </span><span class="s1">y_approx</span><span class="s2">, </span><span class="s1">label</span><span class="s2">=</span><span class="s5">'Approximate'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">legend</span><span class="s2">()</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">xlabel</span><span class="s2">(</span><span class="s5">'t'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">ylabel</span><span class="s2">(</span><span class="s5">'y'</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">title</span><span class="s2">(</span><span class="s5">&quot;y versus t using exact and approximate solutions&quot;</span><span class="s2">)</span>
+<span class="s1">plt</span><span class="s2">.</span><span class="s1">show</span><span class="s2">()</span></pre>
+</body>
+</html>
